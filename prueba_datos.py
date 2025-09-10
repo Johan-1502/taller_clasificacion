@@ -9,6 +9,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import classification_report, confusion_matrix
 from imblearn.under_sampling import RandomUnderSampler
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # ========================
 # 2. Cargar dataset CSV
@@ -38,14 +40,35 @@ X_scaled = scaler.fit_transform(X)
 rus = RandomUnderSampler(random_state=42)
 X_bal, y_bal = rus.fit_resample(X_scaled, y)
 
+print(f"\nCantidad de datos antes de balancear{len(X_scaled)}")
+print(f"Cantidad de datos después de balancear{len(X_bal)}\n")
+
 # División en entrenamiento (70%) y prueba (30%)
 X_train, X_test, y_train, y_test = train_test_split(
     X_bal, y_bal, test_size=0.3, random_state=42, stratify=y_bal
 )
 
 # ========================
+# 3.1. Matriz de Correlación
+# ========================
+plt.figure(figsize=(12,8))
+correlation_matrix = data_encoded.corr()
+
+sns.heatmap(
+    correlation_matrix,
+    annot=True,
+    cmap="coolwarm",
+    center=0
+)
+plt.title("Matriz de correlación entre variables")
+plt.show()
+
+
+# ========================
 # 4. GridSearch para KNN
 # ========================
+
+print("Realizando entrenamiento por medio del algoritmo knn")
 param_grid_knn = {
     'n_neighbors': [3, 5, 7, 9, 11],
     'weights': ['uniform', 'distance'],
@@ -62,9 +85,26 @@ print("Precisión en test:", grid_knn.score(X_test, y_test))
 print("\nReporte KNN:\n", classification_report(y_test, grid_knn.predict(X_test)))
 print("Matriz de confusión KNN:\n", confusion_matrix(y_test, grid_knn.predict(X_test)))
 
+#Matriz de confusión KNN
+cm = confusion_matrix(y_test, grid_knn.predict(X_test))
+plt.figure(figsize=(6,4))
+sns.heatmap(
+    cm,
+    annot=True,
+    fmt="d",
+    cmap="Blues",
+    xticklabels=["No tiene", "Si tiene"],
+    yticklabels=["No tiene", "Si tiene"]
+)
+plt.xlabel("Predicción")
+plt.ylabel("Real")
+plt.title("Matriz de confusión K-vecinos")
+plt.show()
+
 # ========================
 # 5. GridSearch para Árbol de Decisión
 # ========================
+print("Realizando entrenamiento por medio de árboles de decisión")
 param_grid_tree = {
     'criterion': ['gini', 'entropy'],
     'max_depth': [3, 5, 10, None],
@@ -93,6 +133,22 @@ plt.bar(features, importances)
 plt.title("Importancia de Variables (Árbol de Decisión)")
 plt.ylabel("Peso relativo")
 plt.xticks(rotation=90)
+plt.show()
+
+#Matriz de confusión Árboles de decisión
+cm = confusion_matrix(y_test, grid_tree.predict(X_test))
+plt.figure(figsize=(6,4))
+sns.heatmap(
+    cm,
+    annot=True,
+    fmt="d",
+    cmap="Blues",
+    xticklabels=["No tiene", "Si tiene"],
+    yticklabels=["No tiene", "Si tiene"]
+)
+plt.xlabel("Predicción")
+plt.ylabel("Real")
+plt.title("Matriz de confusión Árboles de decisión")
 plt.show()
 
 # ========================
