@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 # 2. Cargar dataset CSV
 # ========================
 print("Cargando datos")
-data = pd.read_csv("diabetes.csv")
+data = pd.read_csv("data/diabetes.csv")
 
 print("Primeras filas del dataset:")
 print(data.head())
