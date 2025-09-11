@@ -1,0 +1,19 @@
+INTRUCCIONES DE USO
+
+Para usar el programa correctamente debe realizar los siguientes pasos:
+
+1. Configuración del entorno virtual e instalación de dependencias:
+Para crear el entorno virtual debe abrir una nueva terminal e ingresar el comando "python -m venv venv" y presionar ENTER,
+luego debe ingresar el comando ".\venv\Scripts\activate" y presionar ENTER, por ultimo,
+debe ingresar "pip install -r requirements.txt" y presionar ENTER para intalar todas las librerías necesarias.
+
+2. Ejecución del codigo fuente:
+Para ejecutar el programa debe abrir el archivo "Algorithms.py" en la carpeta "src" con su editor de confianza.
+Luego ejecute el programa segun corresponda en su editor. El programa se ejecutara.
+
+3. Visualización de resultados:
+Una vez ejecutado el programa este realizara los calculos correspondientes según el algoritmo para mostrar los distintos diagramas de visualización, dichos diagramas se ejecutan de manera secuencial, por lo tanto,
+una vez muestre la ventana con un diagrama debe cerrar dicha ventana para que el programa continue con 
+la visualización del siguiente diagrama. 
+
+Nota: Una vez el programa ejecuta el ultimo diagrama, se genera automaticamente el archivo "arbol_decision.pdf", en este archivo puede visualizar dicho diagrama en una mayor resolución si es necesario para usted.

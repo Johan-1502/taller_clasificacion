@@ -104,7 +104,7 @@ plt.show()
 # ========================
 # 5. GridSearch para Árbol de Decisión
 # ========================
-print("Realizando entrenamiento por medio de árboles de decisión")
+print("Realizando entrenamiento por medio del algoritmo de árbol de decisión")
 param_grid_tree = {
     'criterion': ['gini', 'entropy'],
     'max_depth': [3, 5, 10, None],
@@ -148,12 +148,13 @@ sns.heatmap(
 )
 plt.xlabel("Predicción")
 plt.ylabel("Real")
-plt.title("Matriz de confusión Árboles de decisión")
+plt.title("Matriz de confusión por Árbol de decisión")
 plt.show()
 
 # ========================
 # 7. Visualización del Árbol
 # ========================
-# plt.figure(figsize=(14,8))
-# plot_tree(best_tree, feature_names=features, class_names=["No Diabetes","Diabetes"], filled=True)
-# plt.show()
+plt.figure(figsize=(40,20))
+plot_tree(best_tree, feature_names=features, class_names=["No Diabetes","Diabetes"], filled=True)
+plt.savefig("arbol_decision.pdf")
+plt.show()
